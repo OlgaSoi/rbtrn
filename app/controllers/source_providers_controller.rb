@@ -1,13 +1,16 @@
 class SourceProvidersController < ApplicationController
   def show
     puts "*** params : #{params}"
-    @sp = 
-    if params.has_key?(:id)
-      SourceProvider.where(:id => params[:id] )
+
+    cond = {:active => true}
+    cond[:id] = params[:id] if params.has_key?(:id) 
+    @sp = SourceProvider.where(cond)
+
+    if @sp.empty?
+      render json: "There is no such value".to_json
     else
-      SourceProvider.all()
+      render json: @sp
     end
-    render json: @sp
   end
   def index
     render json: {:provider => 'rr17-api', :version => '1' }.to_json
