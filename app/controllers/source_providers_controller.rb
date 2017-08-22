@@ -1,4 +1,5 @@
 class SourceProvidersController < ApplicationController
+=begin
   def show
     puts "*** params : #{params}"
 
@@ -15,4 +16,5 @@ class SourceProvidersController < ApplicationController
   def index
     render json: {:provider => 'rr17-api', :version => '1' }.to_json
   end
+=end
 end
