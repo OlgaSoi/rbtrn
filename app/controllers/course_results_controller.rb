@@ -1,5 +1,5 @@
 class CourseResultsController < ApplicationController
-=begin
+#=begin
   def courses
     now_t = DateTime.now
     @cr = CourseResult.where('( extract(year from created_at) = ? ) AND
@@ -12,5 +12,5 @@ class CourseResultsController < ApplicationController
     @cr = CourseResult.order("created_at desc").limit(10)
     render json: @cr
   end
-=end
+#=end
 end
