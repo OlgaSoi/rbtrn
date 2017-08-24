@@ -1,20 +1,14 @@
 class SourceProvidersController < ApplicationController
-#=begin
-  def show
-    puts "*** params : #{params}"
-
-    cond = {:active => true}
-    cond[:id] = params[:id] if params.has_key?(:id) 
-    @sp = SourceProvider.where(cond)
-
-    if @sp.empty?
-      render json: "There is no such value".to_json
-    else
-      render json: @sp
-    end
-  end
   def index
-    render json: {:provider => 'rr17-api', :version => '1' }.to_json
+    puts "*** SourceProvidersController#index @sp #{@sp}"
+    puts "*** params.has_key?(:filter) : #{params.has_key?(:filter)}"
+    cond = {:active => true}
+    cond[:id] = params[:filter][:id] if params.has_key?(:filter) and params[:filter].has_key?(:id) 
+    @sp = SourceProvider.where(cond)
+    
+    @serializer = JSONAPI::ResourceSerializer.new(SourceProviderResource)
+    render json: 
+      @serializer.serialize_to_hash(prepare_data(@sp, SourceProviderResource))
   end
-#=end
+
 end
