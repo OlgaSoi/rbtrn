@@ -4,6 +4,8 @@ class User < ApplicationRecord
   validates :email, :uniqueness => true, :presence => true
 
   before_save :process_values
+  before_create :create_api_key
+  has_secure_password
  
   def full_name
     [self.last_name, self.first_name].join(' ')
@@ -31,4 +33,9 @@ class User < ApplicationRecord
     end
     string
   end
+
+  def create_api_key
+    self.api_key=generate_random_string(16)
+  end
+
 end
